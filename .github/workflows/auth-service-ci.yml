@@ -1,0 +1,127 @@
+name: Marketplace Auth Service CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: marketplace_auth
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d marketplace_auth"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/marketplace_auth
+      REDIS_URL: redis://127.0.0.1:6379
+      JWT_ACCESS_SECRET: ci-only-access-secret
+      JWT_REFRESH_SECRET: ci-only-refresh-secret
+      SEED_PASSWORD: ci-seed-password
+      E2E_PASSWORD: E2ePassword123
+      CORS_ORIGINS: http://localhost:3000
+      AUTH_EVENT_SINK_URL: http://127.0.0.1:8099/events
+      AUTH_EVENT_SINK_INSPECT_URL: http://127.0.0.1:8099/events
+      NODE_ENV: test
+      PORT: 8080
+      API_BASE_URL: http://127.0.0.1:8080
+      OAUTH_E2E: "1"
+      GOOGLE_CLIENT_ID: google-e2e-client
+      GOOGLE_CLIENT_SECRET: google-e2e-secret
+      GOOGLE_REDIRECT_URI: http://127.0.0.1:8080/api/auth/oauth/google/callback
+      GOOGLE_TOKEN_URL: http://127.0.0.1:8100/google/token
+      GOOGLE_USERINFO_URL: http://127.0.0.1:8100/google/userinfo
+      APPLE_CLIENT_ID: com.marketplace.e2e
+      APPLE_TEAM_ID: e2e-team
+      APPLE_KEY_ID: e2e-key
+      APPLE_REDIRECT_URI: http://127.0.0.1:8080/api/auth/oauth/apple/callback
+      APPLE_TOKEN_URL: http://127.0.0.1:8100/apple/token
+      APPLE_JWKS_URL: http://127.0.0.1:8100/apple/keys
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Regenerate API validation
+        run: pnpm run codegen
+
+      - name: Apply database schema
+        run: pnpm run db:push
+
+      - name: Seed test identities
+        run: pnpm run seed
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Unit, security, OAuth, and MFA tests
+        run: pnpm test
+
+      - name: Integration tests
+        run: pnpm run test:integration
+
+      - name: Build production bundle
+        run: pnpm run build
+
+      - name: Start event sink and auth service
+        run: |
+          node scripts/test-event-sink.mjs > /tmp/auth-event-sink.log 2>&1 &
+          node scripts/oauth-provider-fixture.mjs > /tmp/oauth-provider.log 2>&1 &
+          export APPLE_PRIVATE_KEY="$(node --input-type=module -e 'import { generateKeyPairSync } from \"node:crypto\"; const { privateKey } = generateKeyPairSync(\"ec\", { namedCurve: \"prime256v1\" }); process.stdout.write(privateKey.export({ type: \"pkcs8\", format: \"pem\" }));')"
+          pnpm run start > /tmp/auth-service.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8080/api/healthz >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/auth-service.log
+          exit 1
+
+      - name: End-to-end tests
+        run: pnpm run test:e2e
+
+      - name: Dependency security audit
+        run: pnpm run audit
+
+      - name: Docker image build
+        run: docker build --tag marketplace-auth-service:ci .
+
