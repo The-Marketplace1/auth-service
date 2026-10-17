@@ -72,7 +72,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          # cache: pnpm
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -105,7 +105,7 @@ jobs:
         run: |
           node scripts/test-event-sink.mjs > /tmp/auth-event-sink.log 2>&1 &
           node scripts/oauth-provider-fixture.mjs > /tmp/oauth-provider.log 2>&1 &
-          export APPLE_PRIVATE_KEY="$(node --input-type=module -e 'import { generateKeyPairSync } from \"node:crypto\"; const { privateKey } = generateKeyPairSync(\"ec\", { namedCurve: \"prime256v1\" }); process.stdout.write(privateKey.export({ type: \"pkcs8\", format: \"pem\" }));')"
+          export APPLE_PRIVATE_KEY="$(node --input-type=module -e 'import { generateKeyPairSync } from "node:crypto"; const { privateKey } = generateKeyPairSync("ec", { namedCurve: "prime256v1" }); process.stdout.write(privateKey.export({ type: "pkcs8", format: "pem" }));')"
           pnpm run start > /tmp/auth-service.log 2>&1 &
           for attempt in {1..30}; do
             if curl --fail --silent http://127.0.0.1:8080/api/healthz >/dev/null; then
@@ -124,4 +124,3 @@ jobs:
 
       - name: Docker image build
         run: docker build --tag marketplace-auth-service:ci .
-
