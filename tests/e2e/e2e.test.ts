@@ -564,6 +564,22 @@ test(
     assert.equal(typeof googleSuccess.body.refreshToken, "string");
     assert.equal(googleSuccess.body.user.role, "customer");
 
+    const googleSignInState = await redirectState("/auth/oauth/google");
+    const googleSignIn = await request(
+      `/auth/oauth/google/callback?code=fixture-google-code&state=${encodeURIComponent(googleSignInState)}`,
+    );
+    assert.equal(googleSignIn.response.status, 200);
+    assert.equal(googleSignIn.body.user.id, googleSuccess.body.user.id);
+    assert.equal(googleSignIn.body.user.role, "customer");
+
+    const googleProfessionalState = await redirectState("/auth/oauth/google");
+    const googleProfessional = await request(
+      `/auth/oauth/google/callback?code=fixture-google-professional-code&state=${encodeURIComponent(googleProfessionalState)}`,
+    );
+    assert.equal(googleProfessional.response.status, 200);
+    assert.equal(googleProfessional.body.user.email, "pro@marketplace.dev");
+    assert.equal(googleProfessional.body.user.role, "professional");
+
     const googleReplay = await request(
       `/auth/oauth/google/callback?code=fixture-google-code&state=${encodeURIComponent(googleState)}`,
     );
@@ -603,6 +619,18 @@ test(
     assert.equal(appleSuccess.response.status, 200);
     assert.equal(typeof appleSuccess.body.accessToken, "string");
     assert.equal(appleSuccess.body.user.role, "customer");
+
+    const appleSignInState = await redirectState("/auth/oauth/apple");
+    const appleSignIn = await request("/auth/oauth/apple/callback", {
+      method: "POST",
+      body: JSON.stringify({
+        code: "fixture-apple-code",
+        state: appleSignInState,
+      }),
+    });
+    assert.equal(appleSignIn.response.status, 200);
+    assert.equal(appleSignIn.body.user.id, appleSuccess.body.user.id);
+    assert.equal(appleSignIn.body.user.role, "customer");
 
     const appleReplay = await request("/auth/oauth/apple/callback", {
       method: "POST",
@@ -649,4 +677,3 @@ test(
     );
   },
 );
-
