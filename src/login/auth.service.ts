@@ -17,7 +17,7 @@ import {
   revokeSession,
   revokeAllSessions,
   getActiveSessions,
-} from "../sessions/session.service";
+} from "../sessions/sessions.service";
 import { emitAuthEvent } from "../events/events.service";
 import { createEmailVerificationChallenge } from "../verification/verification.service";
 import { consumePasswordResetToken } from "../recovery/password-recovery.service";
