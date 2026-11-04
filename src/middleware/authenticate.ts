@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyAccessToken, JwtPayload } from "../tokens/jwt";
 import { getRedis } from "../utils/redis";
-import { sessionRefreshKey } from "../sessions/session.service";
+import { sessionRefreshKey } from "../sessions/sessions.service";
 
 declare global {
   namespace Express {
