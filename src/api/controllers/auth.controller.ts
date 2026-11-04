@@ -13,7 +13,7 @@ import { setup2FA, verify2FA, disable2FA } from "../../mfa/twofa.service";
 import {
   assertSessionOwned,
   revokeSession,
-} from "../../sessions/session.service";
+} from "../../sessions/sessions.service";
 import { db, usersTable } from "../../repositories/database";
 import { eq } from "drizzle-orm";
 import { config } from "../../app/config";
