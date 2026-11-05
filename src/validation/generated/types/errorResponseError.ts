@@ -11,4 +11,3 @@ export type ErrorResponseError = {
   message: string;
   fields?: ErrorResponseErrorFields;
 };
-

@@ -13,4 +13,3 @@ export interface PhoneVerificationRequestInput {
    */
   phone: string;
 }
-

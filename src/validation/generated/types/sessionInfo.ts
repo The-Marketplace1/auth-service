@@ -15,4 +15,3 @@ export interface SessionInfo {
   /** True if this session belongs to the current request's access token */
   isCurrent: boolean;
 }
-

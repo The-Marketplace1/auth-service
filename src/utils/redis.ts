@@ -152,4 +152,3 @@ export async function getRedis(): Promise<RedisLike> {
 export function resetRedis(): void {
   redisClient = null;
 }
-

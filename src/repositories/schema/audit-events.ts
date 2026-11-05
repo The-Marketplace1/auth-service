@@ -17,4 +17,3 @@ export const authAuditEventsTable = pgTable("auth_audit_events", {
 });
 
 export type AuthAuditEvent = typeof authAuditEventsTable.$inferSelect;
-

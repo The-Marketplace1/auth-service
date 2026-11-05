@@ -14,4 +14,3 @@ export interface AuthResponse {
   expiresIn: number;
   user: UserProfile;
 }
-

@@ -14,4 +14,3 @@ export const UserUpdateRole = {
   professional: "professional",
   admin: "admin",
 } as const;
-

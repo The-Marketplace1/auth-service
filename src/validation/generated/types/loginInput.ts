@@ -12,4 +12,3 @@ export interface LoginInput {
   /** @nullable */
   totpCode?: string | null;
 }
-

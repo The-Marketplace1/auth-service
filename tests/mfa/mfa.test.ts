@@ -28,4 +28,3 @@ test("TOTP codes verify for the generated secret and reject a wrong code", () =>
     false,
   );
 });
-

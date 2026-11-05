@@ -11,4 +11,3 @@ export type UserStatsByRole = {
   professional: number;
   admin: number;
 };
-

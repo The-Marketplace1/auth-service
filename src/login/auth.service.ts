@@ -410,4 +410,3 @@ export async function resetPasswordWithToken(
   const userId = await consumePasswordResetToken(token);
   await resetPassword(userId, newPassword);
 }
-

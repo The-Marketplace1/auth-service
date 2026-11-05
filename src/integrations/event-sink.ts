@@ -24,4 +24,3 @@ export async function publishAuthEvent(
     throw new Error(`Auth event sink returned HTTP ${response.status}`);
   }
 }
-

@@ -79,4 +79,3 @@ export async function disable2FA(userId: string, totpCode: string) {
 
   return { message: "2FA disabled successfully" };
 }
-

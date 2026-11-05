@@ -83,4 +83,3 @@ export async function emitAuthEvent(
     "Auth event emitted",
   );
 }
-

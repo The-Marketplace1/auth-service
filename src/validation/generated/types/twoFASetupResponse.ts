@@ -11,4 +11,3 @@ export interface TwoFASetupResponse {
   otpauthUrl: string;
   qrCodeUrl: string;
 }
-

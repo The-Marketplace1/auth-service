@@ -10,4 +10,3 @@ export interface VerificationTokenInput {
   /** @minLength 32 */
   token: string;
 }
-

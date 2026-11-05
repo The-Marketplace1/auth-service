@@ -11,4 +11,3 @@ export interface LogoutAllResponse {
   /** Number of sessions that were revoked */
   count: number;
 }
-

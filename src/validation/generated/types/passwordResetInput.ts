@@ -12,4 +12,3 @@ export interface PasswordResetInput {
   /** @minLength 12 */
   password: string;
 }
-

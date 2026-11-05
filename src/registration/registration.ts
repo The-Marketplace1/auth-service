@@ -36,4 +36,3 @@ export function parseRegistrationInput(input: unknown) {
 
   return parsed;
 }
-

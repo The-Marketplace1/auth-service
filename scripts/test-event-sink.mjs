@@ -41,4 +41,3 @@ const server = createServer(async (req, res) => {
 server.listen(port, "127.0.0.1", () => {
   console.log(`test event sink listening on 127.0.0.1:${port}`);
 });
-

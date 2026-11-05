@@ -7,4 +7,3 @@
  */
 
 export type ErrorResponseErrorFields = { [key: string]: string };
-

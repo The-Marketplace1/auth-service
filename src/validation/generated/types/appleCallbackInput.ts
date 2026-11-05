@@ -20,4 +20,3 @@ export interface AppleCallbackInput {
   /** @nullable */
   user?: string | null;
 }
-

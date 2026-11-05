@@ -39,4 +39,3 @@ router.get("/metrics", (_req, res) => {
 });
 
 export default router;
-

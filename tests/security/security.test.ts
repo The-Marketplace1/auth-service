@@ -11,4 +11,3 @@ test("security password policy rejects short and predictable passwords", () => {
 test("security password policy accepts a high-entropy password", () => {
   assert.doesNotThrow(() => assertStrongPassword("Correct-Horse-Battery-77!"));
 });
-

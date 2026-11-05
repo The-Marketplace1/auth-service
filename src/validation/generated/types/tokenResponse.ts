@@ -12,4 +12,3 @@ export interface TokenResponse {
   /** Access token TTL in seconds */
   expiresIn: number;
 }
-

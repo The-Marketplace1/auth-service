@@ -7,4 +7,3 @@ test("integration test suite is wired to the standalone service", () => {
     true,
   );
 });
-

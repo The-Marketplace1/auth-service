@@ -60,4 +60,3 @@ export async function consumePasswordResetToken(
   await redis.del(resetKey(token));
   return userId;
 }
-

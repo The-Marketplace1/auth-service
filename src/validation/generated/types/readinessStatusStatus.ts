@@ -13,4 +13,3 @@ export const ReadinessStatusStatus = {
   ready: "ready",
   not_ready: "not_ready",
 } as const;
-

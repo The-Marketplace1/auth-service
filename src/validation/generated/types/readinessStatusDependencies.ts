@@ -10,4 +10,3 @@ export type ReadinessStatusDependencies = {
   database: string;
   redis: string;
 };
-

@@ -13,4 +13,3 @@ export function assertStrongPassword(password: string): void {
     );
   }
 }
-

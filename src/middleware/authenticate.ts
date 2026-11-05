@@ -47,4 +47,3 @@ export async function authenticate(
     res.status(401).json(errBody("Invalid or expired access token"));
   }
 }
-

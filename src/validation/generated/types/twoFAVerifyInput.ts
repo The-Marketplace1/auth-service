@@ -9,4 +9,3 @@
 export interface TwoFAVerifyInput {
   totpCode: string;
 }
-

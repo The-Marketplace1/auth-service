@@ -13,4 +13,3 @@ export type ListUsersParams = {
   role?: ListUsersRole;
   search?: string;
 };
-

@@ -14,4 +14,3 @@ export const UserProfileRole = {
   professional: "professional",
   admin: "admin",
 } as const;
-

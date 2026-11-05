@@ -14,4 +14,3 @@ export type OauthGoogleCallbackParams = {
   error?: string;
   state: string;
 };
-

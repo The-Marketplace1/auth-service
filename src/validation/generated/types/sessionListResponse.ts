@@ -10,4 +10,3 @@ import type { SessionInfo } from "./sessionInfo";
 export interface SessionListResponse {
   sessions: SessionInfo[];
 }
-

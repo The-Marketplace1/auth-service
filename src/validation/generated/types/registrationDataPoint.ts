@@ -10,4 +10,3 @@ export interface RegistrationDataPoint {
   date: string;
   count: number;
 }
-

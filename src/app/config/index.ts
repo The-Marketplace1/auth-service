@@ -59,4 +59,3 @@ if (
 ) {
   throw new Error("AUTH_EVENT_SINK_URL must use HTTPS in production");
 }
-

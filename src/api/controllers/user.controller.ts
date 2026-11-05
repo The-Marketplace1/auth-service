@@ -145,4 +145,3 @@ export async function getUserStatsController(
     handleServiceError(err, res);
   }
 }
-

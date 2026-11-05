@@ -10,4 +10,3 @@ export interface PhoneVerificationInput {
   /** @pattern ^[0-9]{6}$ */
   code: string;
 }
-

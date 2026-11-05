@@ -11,4 +11,3 @@ export interface ErrorResponse {
   success: boolean;
   error: ErrorResponseError;
 }
-

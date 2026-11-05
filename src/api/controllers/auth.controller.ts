@@ -634,4 +634,3 @@ export async function oauthAppleCallbackController(
     handleServiceError(err, res);
   }
 }
-

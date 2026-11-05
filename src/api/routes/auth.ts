@@ -68,4 +68,3 @@ router.get("/auth/oauth/apple", oauthAppleRedirectController);
 router.post("/auth/oauth/apple/callback", oauthAppleCallbackController);
 
 export default router;
-

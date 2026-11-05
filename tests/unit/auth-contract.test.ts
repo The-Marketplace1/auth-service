@@ -107,4 +107,3 @@ test("access tokens preserve role claims for gateway authorization", () => {
     assert.equal(verifyAccessToken(token).role, role);
   }
 });
-

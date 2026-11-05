@@ -16,4 +16,3 @@ export interface RegisterInput {
   /** Required when role is professional; omitted for customers. */
   professionalDetails?: ProfessionalDetails | null;
 }
-

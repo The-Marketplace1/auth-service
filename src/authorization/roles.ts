@@ -13,4 +13,3 @@ export function isUserRole(value: unknown): value is UserRole {
 export function hasMinimumRole(actual: UserRole, required: UserRole): boolean {
   return roleHierarchy[actual] >= roleHierarchy[required];
 }
-

@@ -19,4 +19,3 @@ export interface UserProfile {
   twoFactorEnabled: boolean;
   professionalDetails: ProfessionalDetails | null;
 }
-

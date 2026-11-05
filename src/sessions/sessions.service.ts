@@ -158,4 +158,3 @@ export async function assertSessionOwned(
     throw Object.assign(new Error("Session already revoked"), { status: 409 });
   }
 }
-

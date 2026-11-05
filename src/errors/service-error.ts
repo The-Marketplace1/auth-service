@@ -49,4 +49,3 @@ export function serviceErrorDetails(error: unknown): {
 
   return { status, message, fields };
 }
-

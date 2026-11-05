@@ -13,4 +13,3 @@ export interface UserStats {
   byRole: UserStatsByRole;
   recentRegistrations: RegistrationDataPoint[];
 }
-

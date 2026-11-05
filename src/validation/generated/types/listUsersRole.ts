@@ -13,4 +13,3 @@ export const ListUsersRole = {
   professional: "professional",
   admin: "admin",
 } as const;
-

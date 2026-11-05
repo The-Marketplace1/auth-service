@@ -26,4 +26,3 @@ export function renderPrometheusMetrics(): string {
   );
   return `${lines.join("\n")}\n`;
 }
-

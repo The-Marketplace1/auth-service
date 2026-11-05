@@ -13,4 +13,3 @@ export const RegisterInputRole = {
   customer: "customer",
   professional: "professional",
 } as const;
-

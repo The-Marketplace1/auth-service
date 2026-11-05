@@ -153,4 +153,3 @@ export async function verifyPhone(userId: string, code: string): Promise<void> {
     metadata: { channel: "phone" },
   });
 }
-

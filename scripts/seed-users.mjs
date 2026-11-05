@@ -44,4 +44,3 @@ main().catch((e) => {
   console.error("Seed error:", e.message);
   process.exit(1);
 });
-
